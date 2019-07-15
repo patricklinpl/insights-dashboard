@@ -1,1 +1,1 @@
-export { default as LTI } from './LTI'
+export { default as BarChart } from './BarChart'

@@ -1,12 +1,12 @@
 import React from 'react'
 import logo from '../../assets/images/logo.svg'
 import './App.css'
-import LaunchEvent from '../../components/LTI/LaunchEvent'
+import BarChart from '../../components/BarChart'
 
 function Page () {
   return (
     <div className='App'>
-      <LaunchEvent render={() => ''} />
+      <BarChart render={() => ''} />
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
         <p>
