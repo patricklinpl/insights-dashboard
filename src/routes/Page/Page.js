@@ -1,31 +1,42 @@
-import React, { useState, useEffect } from 'react'
-import BarChart from '../../components/BarChart'
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import ChartCard from '../../components/ChartCard'
+import PieChart from '../../components/PieChart'
 import ProfileEvents from '../../services/caliper/profileEvents'
-import { PROFILE_EVENTS, TOOL_LAUNCH_EVENT, TOOL_USE_EVENT } from '../../services/caliper/constants'
+import endpoints from '../../services/caliper/endpoints'
+import useFetch from '../../services/caliper/hooks'
 
-function Page () {
-  // const [error] = useState(null)
-  const [pEvents, setPEvents] = useState(null)
+const { PROFILE_EVENTS_URL } = endpoints
 
-  useEffect(() => {
-    const fetchProfileEvents = async () => {
-      const data = await ProfileEvents.parseData()
-      setPEvents({
-        title: [PROFILE_EVENTS],
-        data: {
-          [TOOL_LAUNCH_EVENT]: data[TOOL_LAUNCH_EVENT].length,
-          [TOOL_USE_EVENT]: data[TOOL_USE_EVENT].length
-        }
-      })
-    }
-    fetchProfileEvents()
-  }, [])
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    padding: 8
+  },
+  paper: {
+    padding: theme.spacing(2),
+    color: theme.palette.text.secondary
+  }
+})
+
+const PieChartCard = ChartCard(PieChart)
+
+function Page (props) {
+  const { classes } = props
+
+  const [pEventsLoaded, pEventsLoadedData] = useFetch({ dataURL: PROFILE_EVENTS_URL })
+
+  const profileEventsData = ProfileEvents.countEventType(pEventsLoadedData)
 
   return (
     <div className='App'>
-      {pEvents ? <BarChart element={pEvents} /> : 'Loading..'}
+      <PieChartCard
+        classes={classes}
+        data={profileEventsData}
+        loaded={pEventsLoaded}
+        title={'Pie Chart'} />
     </div>
   )
 }
 
-export default Page
+export default withStyles(styles)(Page)
