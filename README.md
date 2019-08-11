@@ -29,3 +29,4 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## 👏 Credits 
 - [Justin Lee](https://github.com/justin0022) - [dashboard](https://github.com/justin0022/dashboard)
+- [Devias](https://github.com/devias-io) - [react-material-dashboard](https://github.com/devias-io/react-material-dashboard)
