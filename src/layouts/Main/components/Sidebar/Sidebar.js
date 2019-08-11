@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Drawer } from '@material-ui/core'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import CodeIcon from '@material-ui/icons/Code'
-import SettingsIcon from '@material-ui/icons/Settings'
+import ErrorIcon from '@material-ui/icons/Error'
 
 import { SidebarNav } from './components'
 
@@ -49,9 +49,14 @@ function Sidebar (props) {
       icon: <CodeIcon />
     },
     {
-      title: 'Settings',
+      title: 'Graph POC',
+      href: '/graph',
+      icon: <CodeIcon />
+    },
+    {
+      title: 'Not Found',
       href: '/settings',
-      icon: <SettingsIcon />
+      icon: <ErrorIcon />
     }
   ]
 

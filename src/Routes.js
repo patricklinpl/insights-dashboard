@@ -7,7 +7,8 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts'
 import {
   Dashboard as DashboardView,
   NotFound as NotFoundView,
-  Rest as RestView
+  Rest as RestView,
+  Graph as GraphView
 } from './views'
 
 function Routes () {
@@ -29,6 +30,12 @@ function Routes () {
         exact
         layout={MainLayout}
         path='/rest'
+      />
+      <RouteWithLayout
+        component={GraphView}
+        exact
+        layout={MainLayout}
+        path='/graph'
       />
       <RouteWithLayout
         component={NotFoundView}

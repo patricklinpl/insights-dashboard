@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
 
 function BarChart (props) {
-  const { input } = props
-  const { data, name } = input
+  const { data, chartProp } = props
 
   return (
     <div>
@@ -12,8 +11,8 @@ function BarChart (props) {
         theme={VictoryTheme.material}
       >
         <VictoryBar
+          {...chartProp}
           data={data}
-          name={name}
         />
       </VictoryChart>
     </div>

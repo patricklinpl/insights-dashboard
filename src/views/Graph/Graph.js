@@ -1,11 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
+import { useQuery } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
 
 import { ChartCard, PieChart } from '../../components'
-import ProfileEvents from '../../services/caliper/parsers/profileEvents'
-import endpoints from '../../services/caliper/endpoints'
-import useFetch from '../../services/hooks'
+import { getAggCount } from '../../services/caliper/parsers/aggregation'
+import { eventTypeCountQuery } from '../../services/caliper/query'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,13 +20,12 @@ const useStyles = makeStyles(theme => ({
 
 const PieChartCard = ChartCard(PieChart)
 
-function Rest () {
+function Graph () {
   const classes = useStyles()
 
-  const { PROFILE_EVENTS_URL } = endpoints
-  const [loaded, data] = useFetch(PROFILE_EVENTS_URL)
+  const { loading, data } = useQuery(gql`${eventTypeCountQuery}`)
 
-  const profileEventsData = ProfileEvents.countEventType(data)
+  const eventTypeData = getAggCount(data)
 
   return (
     <div className={classes.root}>
@@ -35,12 +35,12 @@ function Rest () {
       >
         <PieChartCard
           classes={classes}
-          data={profileEventsData}
-          loaded={loaded}
-          title={'Profile Event Types'} />
+          data={eventTypeData}
+          loaded={!loading}
+          title={'# of tool use vs launch events'} />
       </Grid>
     </div>
   )
 }
 
-export default Rest
+export default Graph

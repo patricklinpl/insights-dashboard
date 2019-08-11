@@ -7,7 +7,6 @@ import Spinner from '../Spinner'
 const ChartCard = ChartComponent => props => {
   const {
     classes,
-    data,
     loaded,
     title,
     xs = 12,
@@ -21,7 +20,7 @@ const ChartCard = ChartComponent => props => {
         {props.children}
         <Grid item xs={xs}>
           <Typography gutterBottom variant='h6'>{title}</Typography>
-          {loaded ? <ChartComponent input={data} {...props} /> : <Spinner />}
+          {loaded ? <ChartComponent {...props} /> : <Spinner />}
         </Grid>
       </Paper>
     </Grid>
