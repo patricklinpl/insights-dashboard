@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -26,6 +27,16 @@ const ChartCard = ChartComponent => props => {
       </Paper>
     </Grid>
   )
+}
+
+ChartCard.propTypes = {
+  classes: PropTypes.object,
+  loaded: PropTypes.bool.isRequired,
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string,
+  xs: PropTypes.number,
+  sm: PropTypes.number,
+  md: PropTypes.number
 }
 
 export default ChartCard

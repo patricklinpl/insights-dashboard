@@ -1,5 +1,7 @@
+import { isEmpty } from 'ramda'
+
 export const getAggCount = result => {
-  if (result) {
+  if (result && !isEmpty(result)) {
     return Object.keys(result).map((key, index) => {
       const value = result[key]['aggregate']['count']
       return {
@@ -8,6 +10,13 @@ export const getAggCount = result => {
         y: value
       }
     })
+  }
+  return null
+}
+
+export const parseToolUse = result => {
+  if (result && !isEmpty(result)) {
+    return Object.values(result)[0]
   }
   return null
 }

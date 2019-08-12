@@ -10,5 +10,11 @@ module.exports = {
             count
           }
         }
-      }`
+      }`,
+  uniqueCourseToolUsage: `{
+    tools_usage {
+      object_id
+      count
+    }
+  }`
 }

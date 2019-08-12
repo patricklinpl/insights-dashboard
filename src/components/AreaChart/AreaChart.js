@@ -1,16 +1,14 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
+import { VictoryArea, VictoryChart, VictoryTheme } from 'victory'
 
-function BarChart (props) {
+function AreaChart (props) {
   const { data, chartProp } = props
 
   return (
     <div>
-      <VictoryChart
-        theme={VictoryTheme.material}
-      >
-        <VictoryBar
+      <VictoryChart theme={VictoryTheme.material} >
+        <VictoryArea
           {...chartProp}
           data={data}
         />
@@ -19,9 +17,9 @@ function BarChart (props) {
   )
 }
 
-BarChart.propTypes = {
+AreaChart.propTypes = {
   chartProp: PropTypes.object,
   data: PropTypes.array.isRequired
 }
 
-export default memo(BarChart)
+export default memo(AreaChart)
