@@ -6,6 +6,8 @@ import { Drawer } from '@material-ui/core'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import CodeIcon from '@material-ui/icons/Code'
 import ErrorIcon from '@material-ui/icons/Error'
+import BookIcon from '@material-ui/icons/Book'
+import SearchIcon from '@material-ui/icons/Search'
 
 import { SidebarNav } from './components'
 
@@ -49,9 +51,19 @@ function Sidebar (props) {
       icon: <CodeIcon />
     },
     {
-      title: 'Graph POC',
+      title: 'GraphQL POC',
       href: '/graph',
       icon: <CodeIcon />
+    },
+    {
+      title: 'Course',
+      href: '/course',
+      icon: <BookIcon />
+    },
+    {
+      title: 'Tool Filter',
+      href: '/toolfilter',
+      icon: <SearchIcon />
     },
     {
       title: 'Not Found',

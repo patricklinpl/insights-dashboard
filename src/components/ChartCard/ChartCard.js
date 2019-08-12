@@ -1,7 +1,6 @@
 import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
+import PropTypes from 'prop-types'
+import { Grid, Paper, Typography } from '@material-ui/core'
 import { Error, Spinner } from '../../components'
 
 const ChartCard = ChartComponent => props => {
@@ -26,6 +25,22 @@ const ChartCard = ChartComponent => props => {
       </Paper>
     </Grid>
   )
+}
+
+ChartCard.defaultProp = {
+  data: [],
+  loaded: false,
+  title: ''
+}
+
+ChartCard.propTypes = {
+  classes: PropTypes.object,
+  loaded: PropTypes.bool.isRequired,
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string,
+  xs: PropTypes.number,
+  sm: PropTypes.number,
+  md: PropTypes.number
 }
 
 export default ChartCard

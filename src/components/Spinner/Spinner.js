@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 function Spinner () {
   return (
@@ -6,4 +6,4 @@ function Spinner () {
   )
 }
 
-export default Spinner
+export default memo(Spinner)
