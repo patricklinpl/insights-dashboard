@@ -8,6 +8,7 @@ const get = async request => {
     })
     .catch(error => {
       console.log(error)
+      return null
     })
   return response
 }

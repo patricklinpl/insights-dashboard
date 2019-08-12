@@ -30,7 +30,7 @@ function Topbar (props) {
       className={clsx(classes.root, className)}
     >
       <Toolbar>
-        <Typography variant='h3' color='inherit' className={classes.grow}>
+        <Typography variant='h3' color='inherit' className={classes.flexgrow}>
           <RouterLink to='/' className={classes.homeButton}>Insights Dashboard</RouterLink>
         </Typography>
         <div className={classes.flexGrow} />
