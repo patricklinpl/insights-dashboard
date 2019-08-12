@@ -8,7 +8,8 @@ import {
   Dashboard as DashboardView,
   NotFound as NotFoundView,
   Rest as RestView,
-  Graph as GraphView
+  Graph as GraphView,
+  Course as CourseView
 } from './views'
 
 function Routes () {
@@ -36,6 +37,12 @@ function Routes () {
         exact
         layout={MainLayout}
         path='/graph'
+      />
+      <RouteWithLayout
+        component={CourseView}
+        exact
+        layout={MainLayout}
+        path='/course'
       />
       <RouteWithLayout
         component={NotFoundView}
