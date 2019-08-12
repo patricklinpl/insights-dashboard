@@ -3,13 +3,12 @@ import PropTypes from 'prop-types'
 import { VictoryPie, VictoryTheme } from 'victory'
 
 function PieChart (props) {
-  const { input } = props
-  const { data, name } = input
+  const { data, chartProp } = props
 
   return (
     <VictoryPie
+      {...chartProp}
       data={data}
-      name={name}
       padding={70}
       theme={VictoryTheme.material}
       style={{ labels: { fill: 'black', fontSize: 10, fontWeight: 'bold' } }}
