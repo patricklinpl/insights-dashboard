@@ -23,7 +23,10 @@ const PieChartCard = ChartCard(PieChart)
 function Graph () {
   const classes = useStyles()
 
-  const { loading, data } = useQuery(gql`${eventTypeCountQuery}`)
+  const { loading, error, data } = useQuery(gql`${eventTypeCountQuery}`)
+  if (error) {
+    console.log(error)
+  }
 
   const eventTypeData = getAggCount(data)
 

@@ -11,6 +11,6 @@ export default class ProfileEvents {
         { x: 2, label: [ TOOL_USE_EVENT ], y: fail.length }
       ]
     }
-    return []
+    return null
   }
 }
