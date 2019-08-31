@@ -6,8 +6,9 @@ function BarChart (props) {
   const { data, chartProp } = props
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <VictoryChart
+        style={{ parent: { maxWidth: '70%', margin: '0 auto' } }}
         theme={VictoryTheme.material}
       >
         <VictoryBar
@@ -19,8 +20,13 @@ function BarChart (props) {
   )
 }
 
+BarChart.defaultProp = {
+  data: []
+}
+
 BarChart.propTypes = {
-  input: PropTypes.object
+  chartProp: PropTypes.object,
+  data: PropTypes.array.isRequired
 }
 
 export default memo(BarChart)

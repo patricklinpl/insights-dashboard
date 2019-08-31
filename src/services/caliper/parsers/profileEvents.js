@@ -1,5 +1,5 @@
 import { TOOL_LAUNCH_EVENT, TOOL_USE_EVENT } from '../constants'
-import { partition } from '../../../utils/array'
+import { partition } from '../../../utils/utilities'
 
 export default class ProfileEvents {
   static countEventType (rsp) {
