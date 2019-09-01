@@ -63,7 +63,9 @@ function Course () {
 
   const { loading, error, data } = useQuery(gql`${getToolsByCourse(searchValue, formatDate(prevStartDate, startDate), formatDate(prevEndDate, endDate))}`)
 
-  const tools = loading && isEmpty(data) ? [] : data['event_toollaunch'].map(tool => ({
+  const waiting = loading && isEmpty(data)
+
+  const tools = waiting ? [] : data['event_toollaunch'].map(tool => ({
     Tool: tool.object_id
   }))
 
@@ -96,7 +98,7 @@ function Course () {
             data={tools}
             error={error}
             label={'Course Tools'}
-            loading={loading}
+            loading={waiting}
           />
 
         </div>
