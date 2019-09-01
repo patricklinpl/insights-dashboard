@@ -1,16 +1,12 @@
 import React from 'react'
 import { Switch, Redirect } from 'react-router-dom'
-
 import { RouteWithLayout } from './components'
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts'
-
 import {
   Dashboard as DashboardView,
   NotFound as NotFoundView,
-  Rest as RestView,
-  Graph as GraphView,
   Course as CourseView,
-  ToolFilter as ToolFilterView
+  Tools as ToolView
 } from './views'
 
 function Routes () {
@@ -28,28 +24,16 @@ function Routes () {
         path='/dashboard'
       />
       <RouteWithLayout
-        component={RestView}
-        exact
-        layout={MainLayout}
-        path='/rest'
-      />
-      <RouteWithLayout
-        component={GraphView}
-        exact
-        layout={MainLayout}
-        path='/graph'
-      />
-      <RouteWithLayout
         component={CourseView}
         exact
         layout={MainLayout}
         path='/course'
       />
       <RouteWithLayout
-        component={ToolFilterView}
+        component={ToolView}
         exact
         layout={MainLayout}
-        path='/toolfilter'
+        path='/tools'
       />
       <RouteWithLayout
         component={NotFoundView}

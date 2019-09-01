@@ -5,7 +5,7 @@ import { isEmpty } from 'ramda'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, Grid } from '@material-ui/core'
 import { DatePicker, SearchInput, TableCard, usePreviousDate } from '../../components'
-import { getAllCourses, getToolsByCourse } from './queries'
+import { uniquetools, getCoursesByTool } from './queries'
 import { formatDate } from '../../utils/utilities'
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Course () {
+function Tools () {
   const [searchValue, setSearchValue] = useState('')
   const [startDate, setStartDate] = useState(new Date('2018-08-02'))
   const [endDate, setEndDate] = useState(new Date())
@@ -43,18 +43,18 @@ function Course () {
 
   const classes = useStyles()
 
-  const { loading: searchLoad, error: searchError, data: searchData } = useQuery(gql`${getAllCourses}`)
+  const { loading: searchLoad, error: searchError, data: searchData } = useQuery(gql`${uniquetools}`)
 
   const suggestions = searchLoad ? [] : searchData['event_toollaunch'].map(suggestion => ({
-    label: suggestion.membership_coursenumber
+    label: suggestion.object_id
   }))
 
-  const { loading, error, data } = useQuery(gql`${getToolsByCourse(searchValue, formatDate(prevStartDate, startDate), formatDate(prevEndDate, endDate))}`)
+  const { loading, error, data } = useQuery(gql`${getCoursesByTool(searchValue, formatDate(prevStartDate, startDate), formatDate(prevEndDate, endDate))}`)
 
   const waiting = loading && isEmpty(data)
 
   const tools = waiting ? [] : data['event_toollaunch'].map(tool => ({
-    Tool: tool.object_id
+    Tool: tool.membership_coursenumber
   }))
 
   return (
@@ -66,7 +66,7 @@ function Course () {
             <Grid item xs={12} sm={6}>
               <SearchInput
                 error={searchError}
-                label='Course'
+                label='Tool'
                 loading={searchLoad}
                 setSearchValue={setSearchValue}
                 suggestions={suggestions}
@@ -85,7 +85,7 @@ function Course () {
           <TableCard
             data={tools}
             error={error}
-            label={searchValue ? `Tools being used by ${searchValue}` : ''}
+            label={searchValue ? `Courses using ${searchValue}` : ''}
             loading={waiting}
           />
 
@@ -95,4 +95,4 @@ function Course () {
   )
 }
 
-export default Course
+export default Tools

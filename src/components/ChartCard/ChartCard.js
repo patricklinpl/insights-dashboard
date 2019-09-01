@@ -6,8 +6,9 @@ import { Error, Spinner } from '../../components'
 const ChartCard = ChartComponent => props => {
   const {
     classes,
-    loaded,
     data,
+    error,
+    loading,
     title,
     xs = 12,
     sm = 6,
@@ -20,7 +21,13 @@ const ChartCard = ChartComponent => props => {
         {props.children}
         <Grid item xs={xs}>
           <Typography gutterBottom variant='h6'>{title}</Typography>
-          {loaded ? (data ? <ChartComponent {...props} /> : <Error />) : <Spinner />}
+          { error ? (
+            <Error />
+          ) : loading || !data ? (
+            <Spinner />
+          ) : (
+            <ChartComponent {...props} />
+          )}
         </Grid>
       </Paper>
     </Grid>
@@ -28,19 +35,19 @@ const ChartCard = ChartComponent => props => {
 }
 
 ChartCard.defaultProp = {
-  data: [],
-  loaded: false,
+  loading: true,
   title: ''
 }
 
 ChartCard.propTypes = {
   classes: PropTypes.object,
-  loaded: PropTypes.bool.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
+  error: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
   title: PropTypes.string,
-  xs: PropTypes.number,
+  md: PropTypes.number,
   sm: PropTypes.number,
-  md: PropTypes.number
+  xs: PropTypes.number
 }
 
 export default ChartCard
