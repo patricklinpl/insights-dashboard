@@ -3,11 +3,11 @@ import clsx from 'clsx'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Drawer } from '@material-ui/core'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import CodeIcon from '@material-ui/icons/Code'
-import ErrorIcon from '@material-ui/icons/Error'
-import BookIcon from '@material-ui/icons/Book'
-import SearchIcon from '@material-ui/icons/Search'
+import {
+  Book as BookIcon,
+  Dashboard as DashboardIcon,
+  Search as SearchIcon
+} from '@material-ui/icons'
 
 import { SidebarNav } from './components'
 
@@ -46,29 +46,14 @@ function Sidebar (props) {
       icon: <DashboardIcon />
     },
     {
-      title: 'REST POC',
-      href: '/rest',
-      icon: <CodeIcon />
-    },
-    {
-      title: 'GraphQL POC',
-      href: '/graph',
-      icon: <CodeIcon />
-    },
-    {
       title: 'Course',
       href: '/course',
       icon: <BookIcon />
     },
     {
-      title: 'Tool Filter',
-      href: '/toolfilter',
+      title: 'Tools',
+      href: '/tools',
       icon: <SearchIcon />
-    },
-    {
-      title: 'Not Found',
-      href: '/settings',
-      icon: <ErrorIcon />
     }
   ]
 

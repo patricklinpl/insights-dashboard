@@ -26,7 +26,7 @@ BarChart.defaultProp = {
 
 BarChart.propTypes = {
   chartProp: PropTypes.object,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array
 }
 
 export default memo(BarChart)

@@ -24,7 +24,7 @@ AreaChart.defaultProp = {
 
 AreaChart.propTypes = {
   chartProp: PropTypes.object,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array
 }
 
 export default memo(AreaChart)

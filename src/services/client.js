@@ -6,10 +6,6 @@ const get = async request => {
       const { data } = rsp
       return data
     })
-    .catch(error => {
-      console.log(error)
-      return null
-    })
   return response
 }
 
