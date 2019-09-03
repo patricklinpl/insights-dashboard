@@ -26,7 +26,7 @@ function MaterialTable (props) {
         {data.map((item, index) => (
           <TableRow hover key={index}>
             {Object.keys(item).map(key => (
-              <TableCell key={index}>{item[key]}</TableCell>
+              <TableCell key={`${item[key]}-${index}`}>{item[key]}</TableCell>
             ))}
           </TableRow>
         ))}

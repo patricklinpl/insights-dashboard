@@ -4,8 +4,11 @@ import { gql } from 'apollo-boost'
 import { isEmpty } from 'ramda'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, Grid } from '@material-ui/core'
-import { DatePicker, SearchInput, TableCard, usePreviousDate } from '../../components'
-import { uniquetools, getCoursesByTool } from './queries'
+
+import { DatePicker, SearchInput, TableCard } from '../../components'
+import { usePreviousDate } from '../../hooks'
+import { COURSE, TABLE, TOOL } from '../../utils/constants'
+import { extractQuery, getValue } from '../../utils/parser'
 import { formatDate } from '../../utils/utilities'
 
 const useStyles = makeStyles(theme => ({
@@ -30,31 +33,47 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     height: theme.spacing(2)
+  },
+  datePicker: {
+    float: 'right'
   }
 }))
+
+const GET_ALL_TOOLS = gql`
+{
+  ${TABLE}(distinct_on: object_id, where: {object_id: {_is_null: false}}) {
+    object_id
+  }
+}
+`
+
+const GET_COURSES_BY_TOOL = (tool, startDate, endDate) => gql`
+{
+  ${TABLE}(distinct_on: group_coursenumber, where: {eventtime: {_gte: "${startDate}", _lte: "${endDate}"}, object_id: {_eq: "${tool}"}, group_coursenumber: {_is_null: false}}) {
+    group_coursenumber
+  }
+}
+`
 
 function Tools () {
   const [searchValue, setSearchValue] = useState('')
   const [startDate, setStartDate] = useState(new Date('2018-08-02'))
   const [endDate, setEndDate] = useState(new Date())
 
-  const prevStartDate = usePreviousDate(startDate)
-  const prevEndDate = usePreviousDate(endDate)
-
   const classes = useStyles()
 
-  const { loading: searchLoad, error: searchError, data: searchData } = useQuery(gql`${uniquetools}`)
+  const startDateResolver = formatDate(usePreviousDate(startDate), startDate)
+  const endDateResolver = formatDate(usePreviousDate(endDate), endDate)
 
-  const suggestions = searchLoad ? [] : searchData['event_toollaunch'].map(suggestion => ({
-    label: suggestion.object_id
+  const { loading: searchLoad, error: searchError, data: searchData } = useQuery(GET_ALL_TOOLS)
+  const { loading, error, data } = useQuery(GET_COURSES_BY_TOOL(searchValue, startDateResolver, endDateResolver))
+
+  const suggestions = extractQuery(TABLE, searchData).map(suggestion => ({
+    label: getValue(TOOL, suggestion)
   }))
 
-  const { loading, error, data } = useQuery(gql`${getCoursesByTool(searchValue, formatDate(prevStartDate, startDate), formatDate(prevEndDate, endDate))}`)
-
-  const waiting = loading && isEmpty(data)
-
-  const tools = waiting ? [] : data['event_toollaunch'].map(tool => ({
-    Tool: tool.membership_coursenumber
+  const courses = extractQuery(TABLE, data).map(tool => ({
+    Courses: getValue(COURSE, tool)
   }))
 
   return (
@@ -73,20 +92,26 @@ function Tools () {
               />
             </Grid>
             <Grid item xs={12} sm={3}>
-              <DatePicker state={{ date: [startDate, setStartDate], label: 'Start Date' }} />
+              <DatePicker
+                className={classes.datePicker}
+                state={{ date: [startDate, setStartDate], label: 'Start Date' }}
+              />
             </Grid>
             <Grid item xs={12} sm={3} >
-              <DatePicker state={{ date: [endDate, setEndDate], label: 'End Date' }} />
+              <DatePicker
+                className={classes.datePicker}
+                state={{ date: [endDate, setEndDate], label: 'End Date' }}
+              />
             </Grid>
           </Grid>
 
           <div className={classes.divider} />
 
           <TableCard
-            data={tools}
+            data={courses}
             error={error}
             label={searchValue ? `Courses using ${searchValue}` : ''}
-            loading={waiting}
+            loading={loading ? isEmpty(courses) : loading}
           />
 
         </div>

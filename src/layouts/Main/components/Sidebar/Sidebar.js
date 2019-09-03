@@ -6,6 +6,7 @@ import { Drawer } from '@material-ui/core'
 import {
   Book as BookIcon,
   Dashboard as DashboardIcon,
+  DataUsage as DataUsageIcon,
   Search as SearchIcon
 } from '@material-ui/icons'
 
@@ -54,6 +55,11 @@ function Sidebar (props) {
       title: 'Tools',
       href: '/tools',
       icon: <SearchIcon />
+    },
+    {
+      title: 'Usage',
+      href: '/usage',
+      icon: <DataUsageIcon />
     }
   ]
 
