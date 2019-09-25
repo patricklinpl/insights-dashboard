@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { isEmpty } from 'ramda'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/styles'
 import {
   Card,
+  CardActions,
   CardContent,
   CardHeader,
-  Divider
+  Divider,
+  TablePagination
 } from '@material-ui/core'
+
 import { Error, MaterialTable, Spinner } from '../../components'
 
 const useStyles = makeStyles(theme => ({
@@ -33,8 +35,29 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function TableCard (props) {
-  const { className, data, error, label, loading, ...rest } = props
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [page, setPage] = useState(0)
+
+  const {
+    className,
+    data = [],
+    error,
+    label,
+    loading = true,
+    paginate = false,
+    ...rest
+  } = props
+
   const classes = useStyles()
+
+  const handlePageChange = (event, page) => {
+    setPage(page)
+  }
+
+  const handleRowsPerPageChange = event => {
+    setPage(0)
+    setRowsPerPage(event.target.value)
+  }
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -42,15 +65,40 @@ function TableCard (props) {
       <Divider />
       <CardContent className={classes.content}>
         <div className={classes.inner}>
-          {loading && isEmpty(data) ? (
+          {loading ? (
             <Spinner />
           ) : error ? (
             <Error />
           ) : (
-            <MaterialTable {...props} />
+            <MaterialTable
+              data={
+                paginate ? (
+                  data.slice((page * rowsPerPage), (rowsPerPage * (page + 1)))
+                ) : (
+                  data
+                )
+              }
+            />
           )}
         </div>
       </CardContent>
+
+      {paginate ? (
+        <CardActions className={classes.actions}>
+          <TablePagination
+            component='div'
+            count={data.length}
+            onChangePage={handlePageChange}
+            onChangeRowsPerPage={handleRowsPerPageChange}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={[5, 10, 25]}
+          />
+        </CardActions>
+      ) : (
+        <div />
+      )}
+
       <Divider />
     </Card>
   )
@@ -59,15 +107,17 @@ function TableCard (props) {
 TableCard.defaultProp = {
   data: [],
   label: '',
-  loading: true
+  loading: true,
+  paginate: false
 }
 
 TableCard.propTypes = {
   className: PropTypes.string,
   error: PropTypes.any,
   label: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  data: PropTypes.array.isRequired
+  loading: PropTypes.bool,
+  data: PropTypes.array,
+  paginate: PropTypes.bool
 }
 
 export default TableCard

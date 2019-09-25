@@ -4,9 +4,10 @@ import { RouteWithLayout } from './components'
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts'
 import {
   Dashboard as DashboardView,
-  NotFound as NotFoundView,
   Course as CourseView,
-  Tools as ToolView
+  Tools as ToolView,
+  NotFound as NotFoundView,
+  Usage as UsageView
 } from './views'
 
 function Routes () {
@@ -34,6 +35,12 @@ function Routes () {
         exact
         layout={MainLayout}
         path='/tools'
+      />
+      <RouteWithLayout
+        component={UsageView}
+        exact
+        layout={MainLayout}
+        path='/usage'
       />
       <RouteWithLayout
         component={NotFoundView}
