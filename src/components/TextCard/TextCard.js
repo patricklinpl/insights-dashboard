@@ -9,7 +9,7 @@ const TextCard = (IconComponent, ContentComponent) => props => {
 
   return (
     <Card className={classes.card}>
-      { error ? (
+      {error ? (
         <Error />
       ) : loading ? (
         <Spinner />

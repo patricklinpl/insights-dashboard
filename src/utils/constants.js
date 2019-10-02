@@ -1,6 +1,6 @@
 module.exports = {
   AGGREGATE: 'aggregate',
-  AGGREGATE_TABLE: `raw_events_aggregate`,
+  AGGREGATE_TABLE: 'raw_events_aggregate',
   COURSE: 'group_coursenumber',
   COUNT: 'count',
   TABLE: 'raw_events',

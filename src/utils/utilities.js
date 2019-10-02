@@ -9,6 +9,8 @@ export const formatDate = (prevDate, newDate) => {
   }
 }
 
+export const getRandomColor = () => `#${Math.floor(Math.random() * 16777216).toString(16)}`
+
 export const partition = (array, compare) => {
   return array.reduce(([pass, fail], element) => {
     return compare(element) ? [[...pass, element], fail] : [pass, [...fail, element]]

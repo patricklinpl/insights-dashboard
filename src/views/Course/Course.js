@@ -85,7 +85,7 @@ function Course () {
             <Grid item xs={12} sm={6}>
               <SearchInput
                 error={searchError}
-                label={'Course'}
+                label='Course'
                 loading={searchLoad}
                 setSearchValue={setSearchValue}
                 suggestions={suggestions}
@@ -97,7 +97,7 @@ function Course () {
                 state={{ date: [startDate, setStartDate], label: 'Start Date' }}
               />
             </Grid>
-            <Grid item xs={12} sm={3} >
+            <Grid item xs={12} sm={3}>
               <DatePicker
                 className={classes.datePicker}
                 state={{ date: [endDate, setEndDate], label: 'End Date' }}

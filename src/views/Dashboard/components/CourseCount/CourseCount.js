@@ -28,7 +28,7 @@ function CourseCount (props) {
       data={getAggCount(data)}
       loading={loading}
       error={error}
-      label={'Unique Courses'}
+      label='Unique Courses'
       {...props}
     />
   )

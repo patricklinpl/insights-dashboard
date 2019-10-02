@@ -15,8 +15,8 @@ const countEventType = (rsp) => {
     const { data } = rsp
     const [pass, fail] = partition(data, (event) => event.type === TOOL_LAUNCH_EVENT)
     return [
-      { x: 1, label: [ TOOL_LAUNCH_EVENT ], y: pass.length },
-      { x: 2, label: [ TOOL_USE_EVENT ], y: fail.length }
+      { x: 1, label: [TOOL_LAUNCH_EVENT], y: pass.length },
+      { x: 2, label: [TOOL_USE_EVENT], y: fail.length }
     ]
   }
   return []
@@ -35,7 +35,7 @@ function ProfileEvents (props) {
       data={profileEventsData}
       error={error}
       loading={loading}
-      title={'Profile Event Types'}
+      title='Profile Event Types'
     />
   )
 }

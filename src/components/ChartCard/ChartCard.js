@@ -20,7 +20,7 @@ const ChartCard = ChartComponent => props => {
         {props.children}
         <Grid item xs={xs}>
           <Typography gutterBottom variant='h6'>{title}</Typography>
-          { error ? (
+          {error ? (
             <Error />
           ) : loading ? (
             <Spinner />
