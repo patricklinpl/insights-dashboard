@@ -1,15 +1,13 @@
 import React from 'react'
 import { Switch, Redirect } from 'react-router-dom'
-
 import { RouteWithLayout } from './components'
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts'
-
 import {
   Dashboard as DashboardView,
+  Course as CourseView,
+  Tools as ToolView,
   NotFound as NotFoundView,
-  Rest as RestView,
-  Graph as GraphView,
-  Course as CourseView
+  Usage as UsageView
 } from './views'
 
 function Routes () {
@@ -27,16 +25,22 @@ function Routes () {
         path='/dashboard'
       />
       <RouteWithLayout
-        component={RestView}
+        component={CourseView}
         exact
         layout={MainLayout}
-        path='/rest'
+        path='/course'
       />
       <RouteWithLayout
-        component={GraphView}
+        component={ToolView}
         exact
         layout={MainLayout}
-        path='/graph'
+        path='/tools'
+      />
+      <RouteWithLayout
+        component={UsageView}
+        exact
+        layout={MainLayout}
+        path='/usage'
       />
       <RouteWithLayout
         component={CourseView}

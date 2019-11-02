@@ -16,9 +16,13 @@ function PieChart (props) {
   )
 }
 
+PieChart.defaultProp = {
+  data: []
+}
+
 PieChart.propTypes = {
   chartProp: PropTypes.object,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array
 }
 
 export default memo(PieChart)

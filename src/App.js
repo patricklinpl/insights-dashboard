@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/styles'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFns from '@date-io/date-fns'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { InMemoryCache } from 'apollo-cache-inmemory'
@@ -17,9 +19,11 @@ function App () {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <Router basename='/' >
-          <Routes />
-        </Router>
+        <MuiPickersUtilsProvider utils={DateFns}>
+          <Router basename='/'>
+            <Routes />
+          </Router>
+        </MuiPickersUtilsProvider>
       </ThemeProvider>
     </ApolloProvider>
   )

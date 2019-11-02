@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { VictoryArea, VictoryChart, VictoryTheme } from 'victory'
+import { VictoryArea, VictoryChart, VictoryTheme, VictoryTooltip } from 'victory'
 
 function AreaChart (props) {
   const { data, chartProp } = props
@@ -9,6 +9,7 @@ function AreaChart (props) {
     <div>
       <VictoryChart theme={VictoryTheme.material} >
         <VictoryArea
+          labelComponent={<VictoryTooltip />}
           {...chartProp}
           data={data}
         />
@@ -17,9 +18,13 @@ function AreaChart (props) {
   )
 }
 
+AreaChart.defaultProp = {
+  data: []
+}
+
 AreaChart.propTypes = {
   chartProp: PropTypes.object,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array
 }
 
 export default memo(AreaChart)
