@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { VictoryChart, VictoryGroup, VictoryLine, VictoryLegend } from 'victory'
+import { Grid, Paper, Typography } from '@material-ui/core'
+import { Error, Spinner } from '../../../../components'
 
-import { ChartCard } from '../../../../components'
+// import { ChartCard } from '../../../../components'
 import { extractQuery } from '../../../../utils/parser'
 import { TOP_TOOLS_EVENT_COUNT_TABLE } from '../../../../utils/constants'
 
@@ -41,23 +43,10 @@ const getDataProp = data => {
   return toolTable
 }
 
-function GroupChart ({ toolTable }) {
+function LineChart ({ toolTable }) {
   const toolNames = Object.keys(toolTable)
   return (
     <VictoryChart scale={{ x: 'time' }} width={1200}>
-      <VictoryLegend x={125} y={50}
-        title='Tools'
-        gutter={20}
-        style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
-        data={
-          toolNames.map(toolName => (
-            {
-              name: toolName,
-              symbol: { fill: toolTable[toolName].color }
-            })
-          )
-        }
-      />
       {
         toolNames.map(toolId => (
           <VictoryGroup
@@ -73,7 +62,24 @@ function GroupChart ({ toolTable }) {
   )
 }
 
-const GroupChartCard = ChartCard(GroupChart)
+function LineLegend ({ toolTable }) {
+  const toolNames = Object.keys(toolTable)
+  return (
+    <VictoryLegend
+      title='Tools'
+      centerTitle
+      gutter={20}
+      data={
+        toolNames.map(toolName => (
+          {
+            name: toolName,
+            symbol: { fill: toolTable[toolName].color }
+          })
+        )
+      }
+    />
+  )
+}
 
 function TopTenTools (props) {
   const { classes } = props
@@ -89,16 +95,27 @@ function TopTenTools (props) {
   }, [loading])
 
   return (
-    <GroupChartCard
-      classes={classes}
-      error={error}
-      loading={Object.keys(toolTableData).length === 0}
-      title={'Top 10 tool event activity'}
-      sm={false}
-      md={false}
-      xs={12}
-      toolTable={toolTableData}
-    />
+    <Grid item xs={12}>
+      <Paper className={classes.paper}>
+        <Typography gutterBottom variant='h6'>Top 10 tool event activity</Typography>
+        {
+          error
+            ? <Error />
+            : loading
+              ? <Spinner />
+              : (
+                <Grid container spacing={2}>
+                  <Grid item xs={10}>
+                    <LineChart toolTable={toolTableData} />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <LineLegend toolTable={toolTableData} />
+                  </Grid>
+                </Grid>
+              )
+        }
+      </Paper>
+    </Grid>
   )
 }
 
