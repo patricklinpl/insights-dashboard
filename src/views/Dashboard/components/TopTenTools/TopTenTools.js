@@ -73,6 +73,8 @@ function GroupChart ({ toolTable }) {
   )
 }
 
+const GroupChartCard = ChartCard(GroupChart)
+
 function TopTenTools (props) {
   const { classes } = props
 
@@ -86,13 +88,11 @@ function TopTenTools (props) {
     }
   }, [loading])
 
-  const GroupChartCard = ChartCard(GroupChart)
-
   return (
     <GroupChartCard
       classes={classes}
       error={error}
-      loading={loading}
+      loading={Object.keys(toolTableData).length === 0}
       title={'Top 10 tool event activity'}
       sm={false}
       md={false}
