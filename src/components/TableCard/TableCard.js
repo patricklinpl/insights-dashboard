@@ -61,8 +61,6 @@ function TableCard (props) {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title={label} />
-      <Divider />
       <CardContent className={classes.content}>
         <div className={classes.inner}>
           {loading ? (
@@ -78,6 +76,7 @@ function TableCard (props) {
                   data
                 )
               }
+              headers={[label]}
             />
           )}
         </div>

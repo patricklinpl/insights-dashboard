@@ -110,7 +110,7 @@ function Course () {
           <TableCard
             data={tools}
             error={error}
-            label={searchValue ? `Tools being used by ${searchValue}` : ''}
+            label={searchValue ? `Tools being used by ${searchValue}` : 'Tools'}
             loading={loading ? isEmpty(tools) : loading}
           />
 
