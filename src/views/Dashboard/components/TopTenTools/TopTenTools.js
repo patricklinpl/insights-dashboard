@@ -6,7 +6,6 @@ import { VictoryChart, VictoryGroup, VictoryLine, VictoryLegend } from 'victory'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import { Error, Spinner } from '../../../../components'
 
-// import { ChartCard } from '../../../../components'
 import { extractQuery } from '../../../../utils/parser'
 import { TOP_TOOLS_EVENT_COUNT_TABLE } from '../../../../utils/constants'
 
@@ -101,14 +100,14 @@ function TopTenTools (props) {
         {
           error
             ? <Error />
-            : loading
+            : Object.keys(toolTableData).length === 0
               ? <Spinner />
               : (
-                <Grid container spacing={2}>
-                  <Grid item xs={10}>
+                <Grid container spacing={0}>
+                  <Grid item xs={9}>
                     <LineChart toolTable={toolTableData} />
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                     <LineLegend toolTable={toolTableData} />
                   </Grid>
                 </Grid>
