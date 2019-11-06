@@ -39,7 +39,7 @@ function EventCompare (props) {
       data={eventData}
       error={error}
       loading={loading}
-      title={'# of tool use vs launch events'}
+      title={'Tool use vs tool launch events'}
     />
   )
 }
