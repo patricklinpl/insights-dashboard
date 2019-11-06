@@ -43,6 +43,12 @@ function Routes () {
         path='/usage'
       />
       <RouteWithLayout
+        component={CourseView}
+        exact
+        layout={MainLayout}
+        path='/course'
+      />
+      <RouteWithLayout
         component={NotFoundView}
         exact
         layout={MinimalLayout}
