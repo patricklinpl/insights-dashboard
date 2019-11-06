@@ -99,7 +99,7 @@ function Usage () {
           <TableCard
             data={filterUsageData}
             error={error}
-            label={'Most used tools'}
+            headers={['Most used tools', 'Count']}
             loading={loading ? isEmpty(filterUsageData) : loading}
             paginate
           />
