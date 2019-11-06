@@ -9,7 +9,7 @@ import { DatePicker, SearchInput, TableCard } from '../../components'
 import { usePreviousDate } from '../../hooks'
 import { COURSE, TABLE, TOOL } from '../../utils/constants'
 import { extractQuery, getValue } from '../../utils/parser'
-import { formatDate } from '../../utils/utilities'
+import { formatDate, aggregateToolUsageCount } from '../../utils/utilities'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,7 +49,7 @@ const GET_ALL_COURSES = gql`
 
 const GET_TOOLS_BY_COURSE = (courseId, startDate, endDate) => gql`
 {
-  ${TABLE}(distinct_on: object_id, where: {group_coursenumber: {_eq: "${courseId}", _is_null: false}, eventtime: {_gte: "${startDate}", _lte: "${endDate}"}}) {
+  ${TABLE}(where: {group_coursenumber: {_eq: "${courseId}", _is_null: false}, eventtime: {_gte: "${startDate}", _lte: "${endDate}"}}) {
     object_id
   }
 }
@@ -66,15 +66,15 @@ function Course () {
   const endDateResolver = formatDate(usePreviousDate(endDate), endDate)
 
   const { loading: searchLoad, error: searchError, data: searchData } = useQuery(GET_ALL_COURSES)
-  const { loading, error, data } = useQuery(GET_TOOLS_BY_COURSE(searchValue, startDateResolver, endDateResolver))
+  const { loading, error, data } = useQuery(GET_TOOLS_BY_COURSE(searchValue, startDateResolver, endDateResolver), { skip: !searchValue })
 
   const suggestions = extractQuery(TABLE, searchData).map(suggestion => ({
     label: getValue(COURSE, suggestion)
   }))
 
-  const tools = extractQuery(TABLE, data).map(tool => ({
+  const tools = aggregateToolUsageCount(extractQuery(TABLE, data).map(tool => ({
     Tool: getValue(TOOL, tool)
-  }))
+  })))
 
   return (
     <div className={classes.root}>
@@ -110,7 +110,7 @@ function Course () {
           <TableCard
             data={tools}
             error={error}
-            headers={[searchValue ? `Tools being used by ${searchValue}` : 'Tools']}
+            headers={searchValue ? [`Tools being used by ${searchValue}`, 'Count'] : ['Tools', 'Count']}
             loading={loading ? isEmpty(tools) : loading}
           />
 

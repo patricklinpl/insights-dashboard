@@ -14,3 +14,15 @@ export const partition = (array, compare) => {
     return compare(element) ? [[...pass, element], fail] : [pass, [...fail, element]]
   }, [[], []])
 }
+
+export const aggregateToolUsageCount = tools => tools
+  .reduce((acc, tool) => {
+    const toolIndex = acc.findIndex(x => x.Tool === tool.Tool)
+    if (toolIndex !== -1) {
+      acc[toolIndex].Count++
+    } else {
+      acc.push({ Tool: tool.Tool, Count: 1 })
+    }
+    return acc
+  }, [])
+  .sort((a, b) => b.Count - a.Count)
