@@ -84,14 +84,14 @@ function TopTenTools (props) {
   const { classes } = props
 
   const { loading, error, data } = useQuery(GET_TOOL_EVENT_COUNT)
-  const eventData = getDataProp(extractQuery(TOP_TOOLS_EVENT_COUNT_TABLE, data))
   const [toolTableData, setToolTableData] = useState({})
 
   useEffect(() => {
+    const eventData = getDataProp(extractQuery(TOP_TOOLS_EVENT_COUNT_TABLE, data))
     if (eventData) {
       setToolTableData(eventData)
     }
-  }, [loading])
+  }, [loading, data])
 
   return (
     <Grid item xs={12}>
