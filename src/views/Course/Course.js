@@ -85,7 +85,7 @@ function Course () {
             <Grid item xs={12} sm={6}>
               <SearchInput
                 error={searchError}
-                label='Course'
+                label={'Course'}
                 loading={searchLoad}
                 setSearchValue={setSearchValue}
                 suggestions={suggestions}
@@ -110,7 +110,7 @@ function Course () {
           <TableCard
             data={tools}
             error={error}
-            label={searchValue ? `Tools being used by ${searchValue}` : ''}
+            headers={[searchValue ? `Tools being used by ${searchValue}` : 'Tools']}
             loading={loading ? isEmpty(tools) : loading}
           />
 

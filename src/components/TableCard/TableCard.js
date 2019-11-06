@@ -6,7 +6,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardHeader,
   Divider,
   TablePagination
 } from '@material-ui/core'
@@ -42,7 +41,7 @@ function TableCard (props) {
     className,
     data = [],
     error,
-    label,
+    headers = [],
     loading = true,
     paginate = false,
     ...rest
@@ -61,8 +60,6 @@ function TableCard (props) {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title={label} />
-      <Divider />
       <CardContent className={classes.content}>
         <div className={classes.inner}>
           {loading ? (
@@ -78,6 +75,7 @@ function TableCard (props) {
                   data
                 )
               }
+              headers={headers}
             />
           )}
         </div>
@@ -106,7 +104,7 @@ function TableCard (props) {
 
 TableCard.defaultProp = {
   data: [],
-  label: '',
+  headers: [],
   loading: true,
   paginate: false
 }
@@ -114,7 +112,7 @@ TableCard.defaultProp = {
 TableCard.propTypes = {
   className: PropTypes.string,
   error: PropTypes.any,
-  label: PropTypes.string,
+  headers: PropTypes.array,
   loading: PropTypes.bool,
   data: PropTypes.array,
   paginate: PropTypes.bool

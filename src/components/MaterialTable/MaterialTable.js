@@ -1,6 +1,5 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { isEmpty } from 'ramda'
 import {
   Table,
   TableBody,
@@ -10,8 +9,7 @@ import {
 } from '@material-ui/core'
 
 function MaterialTable (props) {
-  const { data } = props
-  const headers = isEmpty(data) ? [] : Object.keys(data[0])
+  const { data, headers = [] } = props
 
   return (
     <Table>

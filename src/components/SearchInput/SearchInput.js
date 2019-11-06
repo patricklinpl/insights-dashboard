@@ -60,7 +60,7 @@ function SearchInput (props) {
         selectedItem
       }) => {
         const { onBlur, onFocus, ...inputProps } = getInputProps({
-          placeholder: `Search for a ${label} (start with a)`
+          placeholder: `Search for a ${label}`
         })
 
         return (
