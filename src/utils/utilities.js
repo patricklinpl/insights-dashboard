@@ -15,7 +15,7 @@ export const partition = (array, compare) => {
   }, [[], []])
 }
 
-export const aggregateToolUsageCount = (tools) => tools
+export const aggregateToolUsageCount = tools => tools
   .reduce((acc, tool) => {
     const toolIndex = acc.findIndex(x => x.Tool === tool.Tool)
     if (toolIndex !== -1) {
