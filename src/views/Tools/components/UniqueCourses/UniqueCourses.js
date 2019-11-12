@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { isEmpty } from 'ramda'
@@ -18,7 +19,7 @@ const GET_COURSES_BY_TOOL = (tool, startDate, endDate) => gql`
 function UniqueCourses (props) {
   const { startDate, endDate, searchValue } = props
 
-  const { loading, error, data } = useQuery(GET_COURSES_BY_TOOL(searchValue, startDate, endDate))
+  const { loading, error, data } = useQuery(GET_COURSES_BY_TOOL(searchValue, startDate, endDate), { skip: !searchValue })
 
   const courses = extractQuery(TABLE, data).map(tool => ({
     Courses: getValue(COURSE, tool)
@@ -32,6 +33,12 @@ function UniqueCourses (props) {
       loading={loading ? isEmpty(courses) : loading}
     />
   )
+}
+
+UniqueCourses.propTypes = {
+  endDate: PropTypes.string.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired
 }
 
 export default UniqueCourses
