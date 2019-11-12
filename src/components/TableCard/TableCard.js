@@ -71,9 +71,7 @@ function TableCard (props) {
               data={
                 paginate ? (
                   data.slice((page * rowsPerPage), (rowsPerPage * (page + 1)))
-                ) : (
-                  data
-                )
+                ) : (data)
               }
               headers={headers}
             />

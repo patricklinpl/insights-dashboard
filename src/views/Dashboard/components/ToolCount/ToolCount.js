@@ -28,7 +28,7 @@ function ToolCount (props) {
       data={getAggCount(data)}
       loading={loading}
       error={error}
-      label={'Unique Tools'}
+      label='Unique Tools'
       {...props}
     />
   )

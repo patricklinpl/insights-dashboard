@@ -7,7 +7,7 @@ function AreaChart (props) {
 
   return (
     <div>
-      <VictoryChart theme={VictoryTheme.material} >
+      <VictoryChart theme={VictoryTheme.material}>
         <VictoryArea
           labelComponent={<VictoryTooltip />}
           {...chartProp}

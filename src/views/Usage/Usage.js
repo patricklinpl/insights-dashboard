@@ -89,7 +89,7 @@ function Usage () {
             <Grid item xs={12} sm={3}>
               <DatePicker state={{ date: [startDate, setStartDate], label: 'Start Date' }} />
             </Grid>
-            <Grid item xs={12} sm={3} >
+            <Grid item xs={12} sm={3}>
               <DatePicker state={{ date: [endDate, setEndDate], label: 'End Date' }} />
             </Grid>
           </Grid>

@@ -8,6 +8,7 @@ import { Error, Spinner } from '../../../../components'
 
 import { extractQuery } from '../../../../utils/parser'
 import { TOP_TOOLS_EVENT_COUNT_TABLE } from '../../../../utils/constants'
+import { getRandomColor } from '../../../../utils/utilities'
 
 const GET_TOOL_EVENT_COUNT = gql`
 {
@@ -19,10 +20,8 @@ const GET_TOOL_EVENT_COUNT = gql`
 }
 `
 
-const getRandomColor = () => `#${Math.floor(Math.random() * 16777216).toString(16)}`
-
 const getDataProp = data => {
-  let toolTable = {}
+  const toolTable = {}
   if (data.length > 0) {
     data.forEach(event => {
       const { date, object_id: objectId, count } = event
@@ -36,7 +35,7 @@ const getDataProp = data => {
         toolTable[objectId] = { data: [], color: getRandomColor() }
       }
 
-      toolTable[objectId]['data'].push(chartProp)
+      toolTable[objectId].data.push(chartProp)
     })
   }
   return toolTable
@@ -49,9 +48,9 @@ function LineChart ({ toolTable }) {
       {
         toolNames.map(toolId => (
           <VictoryGroup
-            color={toolTable[toolId]['color']}
+            color={toolTable[toolId].color}
             key={toolId}
-            data={toolTable[toolId]['data']}
+            data={toolTable[toolId].data}
           >
             <VictoryLine />
           </VictoryGroup>
@@ -73,8 +72,8 @@ function LineLegend ({ toolTable }) {
           {
             name: toolName,
             symbol: { fill: toolTable[toolName].color }
-          })
-        )
+          }
+        ))
       }
     />
   )
