@@ -72,14 +72,6 @@ function Tools () {
 
           <div className={classes.divider} />
 
-          <UniqueCourses
-            startDate={startDateResolver}
-            endDate={endDateResolver}
-            searchValue={searchValue}
-          />
-
-          <div className={classes.divider} />
-
           <ToolActivity
             classes={classes}
             startDate={startDateResolver}
