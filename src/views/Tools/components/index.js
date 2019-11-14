@@ -1,2 +1,2 @@
-export { default as ToolActivity } from './ToolActivity'
-export { default as UniqueCourses } from './UniqueCourses'
+export { default as Activity } from './Activity'
+export { default as Table } from './Table'

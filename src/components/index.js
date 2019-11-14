@@ -1,3 +1,4 @@
+export { default as ActivityChart } from './ActivityChart'
 export { default as AreaChart } from './AreaChart'
 export { default as BarChart } from './BarChart'
 export { default as ChartCard } from './ChartCard'

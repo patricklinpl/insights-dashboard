@@ -4,9 +4,8 @@ import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { isEmpty } from 'ramda'
 
-import GroupChart from './GroupChart'
 import getDataProp from './data'
-import { ChartCard } from '../../../../components'
+import { ActivityChart, ChartCard } from '../../../../components'
 import { extractQuery } from '../../../../utils/parser'
 import { TABLE } from '../../../../utils/constants'
 
@@ -20,9 +19,9 @@ const GET_TOOL_ACTIVITY = (tool, startDate, endDate) => gql`
 }
 `
 
-const GroupChartCard = ChartCard(GroupChart)
+const GroupChartCard = ChartCard(ActivityChart)
 
-function ToolActivity (props) {
+function Activity (props) {
   const { classes, startDate, endDate, searchValue } = props
   const [chartData, setChartData] = useState({})
 
@@ -49,11 +48,11 @@ function ToolActivity (props) {
   )
 }
 
-ToolActivity.propTypes = {
+Activity.propTypes = {
   classes: PropTypes.object,
   endDate: PropTypes.string.isRequired,
   searchValue: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired
 }
 
-export default ToolActivity
+export default Activity
