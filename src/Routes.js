@@ -16,13 +16,13 @@ function Routes () {
       <Redirect
         exact
         from='/'
-        to='/dashboard'
+        to='/overview'
       />
       <RouteWithLayout
         component={DashboardView}
         exact
         layout={MainLayout}
-        path='/dashboard'
+        path='/overview'
       />
       <RouteWithLayout
         component={CourseView}
