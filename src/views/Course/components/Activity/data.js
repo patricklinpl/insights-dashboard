@@ -6,11 +6,7 @@ const USE_PERCENT_NUM = 3
 
 const sortByDate = sortBy(prop('x'))
 
-const getDataProp = data => {
-  if (!isEmpty(data)) {
-    return groupByMonth(data)
-  }
-}
+const getDataProp = data => !isEmpty(data) ? groupByMonth(data) : {}
 
 const groupByMonth = data => {
   const dataStore = {
