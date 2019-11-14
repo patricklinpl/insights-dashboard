@@ -42,22 +42,22 @@ function Sidebar (props) {
 
   const pages = [
     {
-      title: 'Dashboard',
-      href: '/dashboard',
+      title: 'Overview',
+      href: '/overview',
       icon: <DashboardIcon />
     },
     {
-      title: 'Course',
+      title: 'Search by Course',
       href: '/course',
       icon: <BookIcon />
     },
     {
-      title: 'Tools',
+      title: 'Search by Tool',
       href: '/tools',
       icon: <SearchIcon />
     },
     {
-      title: 'Usage',
+      title: 'Total Tool Usage',
       href: '/usage',
       icon: <DataUsageIcon />
     }
