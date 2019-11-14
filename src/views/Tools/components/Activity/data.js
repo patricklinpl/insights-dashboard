@@ -54,9 +54,12 @@ const normalizeDateRanges = dataStore => {
     Object.keys(totals).forEach(date => {
       if (!elements[course][date]) {
         elements[course][date] = {
+          label: `${course}: 0`,
           x: date,
           y: 0
         }
+      } else {
+        elements[course][date].label = `${course}: ${elements[course][date].y}`
       }
     })
     dataStore.chartNumber.push(sortByDate(Object.values(elements[course])))
@@ -68,12 +71,13 @@ const normalizeDateRanges = dataStore => {
 }
 
 const calculatePercentage = dataStore => {
-  const { totals } = dataStore
+  const { elements, totals } = dataStore
 
   dataStore.chartPercent = sortByDate(
-    dataStore.chartNumber.map(course => (
+    dataStore.chartNumber.map((course, i) => (
       course.map(data => (
         {
+          label: `${Object.keys(elements)[i]}: ${data.y}`,
           x: data.x,
           y: Math.round((data.y / totals[data.x]) * 100)
         }

@@ -2,7 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { isEmpty } from 'ramda'
 import { Grid } from '@material-ui/core'
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from 'victory'
+import {
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryStack,
+  VictoryTooltip
+} from 'victory'
 
 import Legend from './Legend'
 
@@ -23,7 +29,13 @@ function ActivityChart (props) {
         <VictoryChart height={450} width={1000} domainPadding={{ x: 75 }}>
           <VictoryStack colorScale={colors}>
             {
-              chartProp.map((element, i) => <VictoryBar key={i} data={element} />)
+              chartProp.map((element, i) => (
+                <VictoryBar
+                  data={element}
+                  key={i}
+                  labelComponent={<VictoryTooltip />}
+                />
+              ))
             }
           </VictoryStack>
           <VictoryAxis dependentAxis tickFormat={(tick) => usePercent ? `${tick}%` : tick} />
