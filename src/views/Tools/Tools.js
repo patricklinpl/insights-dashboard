@@ -68,6 +68,7 @@ function Tools () {
             setStartDate={setStartDate}
             startDate={startDate}
             suggestions={suggestions}
+            label={'Tool'}
           />
 
           <div className={classes.divider} />

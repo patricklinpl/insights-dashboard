@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function SearchWithDate (props) {
-  const { searchError, searchLoad, setSearchValue, suggestions, startDate, endDate, setStartDate, setEndDate } = props
+  const { searchError, searchLoad, setSearchValue, suggestions, startDate, endDate, setStartDate, setEndDate, label } = props
 
   const classes = useStyles()
 
@@ -27,7 +27,7 @@ function SearchWithDate (props) {
       <Grid item xs={12} sm={6}>
         <SearchInput
           error={searchError}
-          label='Tool'
+          label={label}
           loading={searchLoad}
           setSearchValue={setSearchValue}
           suggestions={suggestions}
