@@ -4,12 +4,12 @@ import { gql } from 'apollo-boost'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card } from '@material-ui/core'
 
+import { Activity } from './components'
 import { SearchWithDate } from '../../components'
-import { usePreviousDate } from '../../hooks'
 import { TABLE, TOOL } from '../../utils/constants'
+import { usePreviousDate } from '../../hooks'
 import { extractQuery, getValue } from '../../utils/parser'
 import { formatDate } from '../../utils/utilities'
-import { ToolActivity, UniqueCourses } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,9 +48,9 @@ function Tools () {
   const startDateResolver = formatDate(usePreviousDate(startDate), startDate)
   const endDateResolver = formatDate(usePreviousDate(endDate), endDate)
 
-  const { loading: searchLoad, error: searchError, data: searchData } = useQuery(GET_ALL_TOOLS)
+  const { loading, error, data } = useQuery(GET_ALL_TOOLS)
 
-  const suggestions = extractQuery(TABLE, searchData).map(suggestion => ({
+  const suggestions = extractQuery(TABLE, data).map(suggestion => ({
     label: getValue(TOOL, suggestion)
   }))
 
@@ -60,19 +60,19 @@ function Tools () {
         <div className={classes.inner}>
 
           <SearchWithDate
-            searchError={searchError}
-            searchLoad={searchLoad}
-            setSearchValue={setSearchValue}
-            suggestions={suggestions}
-            startDate={startDate}
             endDate={endDate}
-            setStartDate={setStartDate}
+            searchError={error}
+            searchLoad={loading}
             setEndDate={setEndDate}
+            setSearchValue={setSearchValue}
+            setStartDate={setStartDate}
+            startDate={startDate}
+            suggestions={suggestions}
           />
 
           <div className={classes.divider} />
 
-          <ToolActivity
+          <Activity
             classes={classes}
             startDate={startDateResolver}
             endDate={endDateResolver}

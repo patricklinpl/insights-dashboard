@@ -6,25 +6,24 @@ import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from 'victory'
 
 import Legend from './Legend'
 
-function GroupChart (props) {
+function ActivityChart (props) {
   const { data } = props
 
   if (isEmpty(data)) {
     return (<div />)
   }
 
-  const { chartNumber, chartPercent, courses, colors, totals } = data
+  const { chartNumber, chartPercent, elements, colors, title, totals, usePercent } = data
 
-  const usePercent = Object.keys(courses).length >= 3
   const chartProp = usePercent ? chartPercent : chartNumber
 
   return (
     <Grid container spacing={0}>
       <Grid item xs={9}>
-        <VictoryChart height={400} width={1200} domainPadding={{ x: 100, y: 20 }}>
+        <VictoryChart height={450} width={1000} domainPadding={{ x: 75 }}>
           <VictoryStack colorScale={colors}>
             {
-              chartProp.map((course, i) => <VictoryBar key={i} data={course} />)
+              chartProp.map((element, i) => <VictoryBar key={i} data={element} />)
             }
           </VictoryStack>
           <VictoryAxis dependentAxis tickFormat={(tick) => usePercent ? `${tick}%` : tick} />
@@ -32,20 +31,26 @@ function GroupChart (props) {
         </VictoryChart>
       </Grid>
       <Grid item xs={3}>
-        <Legend courses={courses} colors={colors} />
+        <Legend colors={colors} elements={elements} title={title} />
       </Grid>
     </Grid>
   )
 }
 
-GroupChart.propTypes = {
+ActivityChart.defaultProp = {
+  data: {}
+}
+
+ActivityChart.propTypes = {
   data: PropTypes.shape({
     chartNumber: PropTypes.array,
     chartPercent: PropTypes.array,
-    courses: PropTypes.object,
+    elements: PropTypes.object,
     colors: PropTypes.array,
-    totals: PropTypes.object
+    title: PropTypes.string,
+    totals: PropTypes.object,
+    usePercent: PropTypes.bool
   }).isRequired
 }
 
-export default GroupChart
+export default ActivityChart

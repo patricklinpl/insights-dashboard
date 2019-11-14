@@ -16,7 +16,7 @@ const GET_COURSES_BY_TOOL = (tool, startDate, endDate) => gql`
 }
 `
 
-function UniqueCourses (props) {
+function Table (props) {
   const { startDate, endDate, searchValue } = props
 
   const { loading, error, data } = useQuery(GET_COURSES_BY_TOOL(searchValue, startDate, endDate), { skip: !searchValue })
@@ -35,10 +35,10 @@ function UniqueCourses (props) {
   )
 }
 
-UniqueCourses.propTypes = {
+Table.propTypes = {
   endDate: PropTypes.string.isRequired,
   searchValue: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired
 }
 
-export default UniqueCourses
+export default Table
