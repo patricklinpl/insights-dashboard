@@ -39,7 +39,7 @@ function Activity (props) {
       classes={classes}
       data={chartData}
       error={error}
-      loading={loading ? isEmpty(chartData) : loading}
+      loading={loading ? !isEmpty(chartData) : loading}
       title='Tool Activity'
       sm={false}
       md={false}
