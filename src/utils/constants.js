@@ -8,5 +8,6 @@ module.exports = {
   TOOL_LAUNCH_EVENT: 'ToolLaunchEvent',
   TOOL_USE_EVENT: 'ToolUseEvent',
   TOOLS_USAGE_TABLE: 'tools_usage',
-  TOP_TOOLS_EVENT_COUNT_TABLE: 'top_tools_event_count'
+  TOP_TOOLS_EVENT_COUNT_TABLE: 'top_tools_event_count',
+  USE_PERCENT_NUM: 3
 }
