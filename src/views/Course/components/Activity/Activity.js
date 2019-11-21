@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import { isEmpty } from 'ramda'
 
-import getDataProp from './data'
+import getDataProp from '../../../../utils/data'
 import { ActivityChart, ChartCard } from '../../../../components'
 import { extractQuery } from '../../../../utils/parser'
 import { TABLE } from '../../../../utils/constants'
@@ -14,7 +14,6 @@ const GET_COURSE_ACTIVITY = (course, startDate, endDate) => gql`
     ${TABLE}(where: {eventtime: {_gte: "${startDate}", _lte: "${endDate}"}, group_coursenumber: {_eq: "${course}", _is_null: false}}) {
         object_id
         eventtime
-        group_coursenumber
     }
 }
 `

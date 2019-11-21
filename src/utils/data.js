@@ -1,20 +1,19 @@
 import { isEmpty, sortBy, prop } from 'ramda'
 
-import { getRandomColor } from '../../../../utils/utilities'
-
-const USE_PERCENT_NUM = 3
+import { USE_PERCENT_NUM } from './constants'
+import { getRandomColor } from './utilities'
 
 const sortByDate = sortBy(prop('x'))
 
 const getDataProp = data => !isEmpty(data) ? groupByMonth(data) : {}
 
-const groupByMonth = data => {
+const groupByMonth = (data) => {
   const dataStore = {
     chartNumber: [],
     chartPercent: [],
     colors: [],
     elements: {},
-    title: 'Tools',
+    title: '',
     totals: {},
     usePercent: false
   }
@@ -22,22 +21,26 @@ const groupByMonth = data => {
   const { chartNumber, colors, elements, totals } = dataStore
 
   data.forEach(event => {
-    const { eventtime, object_id } = event // eslint-disable-line camelcase
+    const { eventtime, group_coursenumber, object_id } = event // eslint-disable-line camelcase
     const date = new Date(eventtime)
-    const dateKey = `${date.getFullYear()}-${date.getMonth() + 1}`
+    const dateKey = `${date.getFullYear()}-${date.getMonth() < 9 ? 0 : ''}${date.getMonth() + 1}`
+
+    const objKey = typeof object_id === 'undefined' ? group_coursenumber : object_id // eslint-disable-line camelcase
+
+    console.log(objKey)
 
     totals[dateKey] ? totals[dateKey]++ : totals[dateKey] = 1
 
-    if (!elements[object_id]) {
-      elements[object_id] = {}
-      chartNumber[object_id] = []
+    if (!elements[objKey]) {
+      elements[objKey] = {}
+      chartNumber[objKey] = []
       colors.push(getRandomColor())
     }
 
-    if (elements[object_id][dateKey]) {
-      elements[object_id][dateKey].y++
+    if (elements[objKey][dateKey]) {
+      elements[objKey][dateKey].y++
     } else {
-      elements[object_id][dateKey] = {
+      elements[objKey][dateKey] = {
         x: dateKey,
         y: 1
       }
@@ -50,19 +53,19 @@ const groupByMonth = data => {
 const normalizeDateRanges = dataStore => {
   const { elements, totals } = dataStore
 
-  Object.keys(elements).forEach(tool => {
+  Object.keys(elements).forEach(obj => {
     Object.keys(totals).forEach(date => {
-      if (!elements[tool][date]) {
-        elements[tool][date] = {
-          label: `${tool}: 0`,
+      if (!elements[obj][date]) {
+        elements[obj][date] = {
+          label: `${obj}: 0`,
           x: date,
           y: 0
         }
       } else {
-        elements[tool][date].label = `${tool}: ${elements[tool][date].y}`
+        elements[obj][date].label = `${obj}: ${elements[obj][date].y}`
       }
     })
-    dataStore.chartNumber.push(sortByDate(Object.values(elements[tool])))
+    dataStore.chartNumber.push(sortByDate(Object.values(elements[obj])))
   })
 
   dataStore.usePercent = Object.keys(elements).length >= USE_PERCENT_NUM
@@ -74,8 +77,8 @@ const calculatePercentage = dataStore => {
   const { elements, totals } = dataStore
 
   dataStore.chartPercent = sortByDate(
-    dataStore.chartNumber.map((tool, i) => (
-      tool.map(data => (
+    dataStore.chartNumber.map((obj, i) => (
+      obj.map(data => (
         {
           label: `${Object.keys(elements)[i]}: ${data.y}`,
           x: data.x,

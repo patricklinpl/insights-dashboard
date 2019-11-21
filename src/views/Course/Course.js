@@ -77,7 +77,7 @@ function Course () {
             setStartDate={setStartDate}
             startDate={startDate}
             suggestions={suggestions}
-            label={'Course'}
+            label='Course'
           />
 
           <div className={classes.divider} />
