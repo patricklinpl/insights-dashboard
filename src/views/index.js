@@ -1,5 +1,7 @@
 export { default as Dashboard } from './Dashboard'
 export { default as Course } from './Course'
 export { default as NotFound } from './NotFound'
+export { default as Results } from './Results'
+export { default as Search } from './Search'
 export { default as Tools } from './Tools'
 export { default as Usage } from './Usage'

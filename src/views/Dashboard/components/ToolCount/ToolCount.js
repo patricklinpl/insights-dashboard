@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import BuildIcon from '@material-ui/icons/Build'
@@ -32,10 +31,6 @@ function ToolCount (props) {
       {...props}
     />
   )
-}
-
-ToolCount.propTypes = {
-  classes: PropTypes.object
 }
 
 export default ToolCount

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Drawer } from '@material-ui/core'
 import {
   Book as BookIcon,
+  Build as BuildIcon,
   Dashboard as DashboardIcon,
   DataUsage as DataUsageIcon,
   Search as SearchIcon
@@ -47,6 +48,11 @@ function Sidebar (props) {
       icon: <DashboardIcon />
     },
     {
+      title: 'Search',
+      href: '/search',
+      icon: <SearchIcon />
+    },
+    {
       title: 'Search by Course',
       href: '/course',
       icon: <BookIcon />
@@ -54,7 +60,7 @@ function Sidebar (props) {
     {
       title: 'Search by Tool',
       href: '/tools',
-      icon: <SearchIcon />
+      icon: <BuildIcon />
     },
     {
       title: 'Total Tool Usage',
