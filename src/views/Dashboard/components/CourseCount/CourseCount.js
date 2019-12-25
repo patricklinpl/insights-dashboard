@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 import BookIcon from '@material-ui/icons/Book'
@@ -32,10 +31,6 @@ function CourseCount (props) {
       {...props}
     />
   )
-}
-
-CourseCount.propTypes = {
-  classes: PropTypes.object
 }
 
 export default CourseCount

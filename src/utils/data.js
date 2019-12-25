@@ -27,8 +27,6 @@ const groupByMonth = (data) => {
 
     const objKey = typeof object_id === 'undefined' ? group_coursenumber : object_id // eslint-disable-line camelcase
 
-    console.log(objKey)
-
     totals[dateKey] ? totals[dateKey]++ : totals[dateKey] = 1
 
     if (!elements[objKey]) {
