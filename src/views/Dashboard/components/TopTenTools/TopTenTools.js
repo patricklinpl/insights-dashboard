@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
-import { VictoryChart, VictoryGroup, VictoryLine, VictoryLegend, Point } from 'victory'
+import { VictoryChart, VictoryGroup, VictoryLine, VictoryLegend } from 'victory'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import colorbrewer from 'colorbrewer'
 import { Error, Spinner } from '../../../../components'
 
 import { extractQuery } from '../../../../utils/parser'
 import { TOP_TOOLS_EVENT_COUNT_TABLE } from '../../../../utils/constants'
-import { getRandomColor } from '../../../../utils/utilities'
 
 const GET_TOOL_EVENT_COUNT = gql`
 {
@@ -64,7 +63,7 @@ function LineChart ({ toolTable }) {
   )
 }
 
-function LineLegend ({ toolTable, handleMouseOnLegend, handleMouseOffLegend }) {
+function LineLegend ({ toolTable }) {
   const toolNames = Object.keys(toolTable)
   return (
     <VictoryLegend
@@ -105,15 +104,6 @@ function TopTenTools (props) {
     }
   }, [loading, data])
 
-  const handleMouseOnLegend = (event) => {
-    console.log(event.target);
-    console.log(event.target.style)
-  }
-
-  const handleMouseOffLegend = (event) => {
-    console.log(event.target);
-  }
-
   return (
     <Grid item xs={12}>
       <Paper className={classes.paper}>
@@ -129,7 +119,7 @@ function TopTenTools (props) {
                     <LineChart toolTable={toolTableData} />
                   </Grid>
                   <Grid item xs={3}>
-                    <LineLegend toolTable={toolTableData} handleMouseOnLegend={handleMouseOnLegend} handleMouseOffLegend={handleMouseOffLegend} />
+                    <LineLegend toolTable={toolTableData} />
                   </Grid>
                 </Grid>
               )

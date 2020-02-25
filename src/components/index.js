@@ -1,6 +1,7 @@
 export { default as ActivityChart } from './ActivityChart'
 export { default as AreaChart } from './AreaChart'
 export { default as BarChart } from './BarChart'
+export { default as BarChartNoAxes } from './BarChartNoAxes'
 export { default as ChartCard } from './ChartCard'
 export { default as ContentCard } from './ContentCard'
 export { default as DatePicker } from './DatePicker'

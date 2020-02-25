@@ -1,12 +1,13 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
+import { VictoryBar, VictoryTheme, VictoryGroup } from 'victory'
 
-function BarChart (props) {
-  const { data, chartProp } = props
+function BarChartNoAxes (props) {
+  const { data, chartProp, chartContainerProp } = props
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <VictoryChart
+      <VictoryGroup
+        {...chartContainerProp}
         style={{ parent: { maxWidth: '70%', margin: '0 auto' } }}
         theme={VictoryTheme.material}
       >
@@ -17,18 +18,18 @@ function BarChart (props) {
             fill: (d) => d.fill
           }}}
         />
-      </VictoryChart>
+      </VictoryGroup>
     </div>
   )
 }
 
-BarChart.defaultProp = {
+BarChartNoAxes.defaultProp = {
   data: []
 }
 
-BarChart.propTypes = {
+BarChartNoAxes.propTypes = {
   chartProp: PropTypes.object,
   data: PropTypes.array
 }
 
-export default memo(BarChart)
+export default memo(BarChartNoAxes)
