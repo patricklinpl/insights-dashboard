@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
-import { ChartCard, PieChart } from '../../../../components'
+import { ChartCard, BarChart, PieChart } from '../../../../components'
 import { getAggCount, makeChartProp } from '../../../../utils/parser'
 import { AGGREGATE_TABLE, TOOL_LAUNCH_EVENT, TOOL_USE_EVENT } from '../../../../utils/constants'
 
@@ -17,7 +17,7 @@ const GET_TOOL_COUNT = tool => gql`
 }
 `
 
-const PieChartCard = ChartCard(PieChart)
+const PieChartCard = ChartCard(BarChart)
 
 function EventCompare (props) {
   const { classes } = props

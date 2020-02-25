@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
-import { VictoryChart, VictoryGroup, VictoryLine, VictoryLegend } from 'victory'
+import { VictoryChart, VictoryGroup, VictoryLine, VictoryLegend, Point } from 'victory'
 import { Grid, Paper, Typography } from '@material-ui/core'
+import colorbrewer from 'colorbrewer'
 import { Error, Spinner } from '../../../../components'
 
 import { extractQuery } from '../../../../utils/parser'
@@ -21,7 +22,9 @@ const GET_TOOL_EVENT_COUNT = gql`
 `
 
 const getDataProp = data => {
+  const colors = colorbrewer.Paired[10]
   const toolTable = {}
+  let currentColorIndex = 0
   if (data.length > 0) {
     data.forEach(event => {
       const { date, object_id: objectId, count } = event
@@ -32,7 +35,8 @@ const getDataProp = data => {
       }
 
       if (!toolTable[objectId]) {
-        toolTable[objectId] = { data: [], color: getRandomColor() }
+        toolTable[objectId] = { data: [], color: colors[currentColorIndex] }
+        currentColorIndex++
       }
 
       toolTable[objectId].data.push(chartProp)
@@ -60,12 +64,12 @@ function LineChart ({ toolTable }) {
   )
 }
 
-function LineLegend ({ toolTable }) {
+function LineLegend ({ toolTable, handleMouseOnLegend, handleMouseOffLegend }) {
   const toolNames = Object.keys(toolTable)
   return (
     <VictoryLegend
       title='Tools'
-      centerTitle
+      leftTitle
       gutter={20}
       data={
         toolNames.map(toolName => (
@@ -75,6 +79,15 @@ function LineLegend ({ toolTable }) {
           }
         ))
       }
+      height={500}
+      style={{
+        title: {
+          fontSize: 24,
+        },
+        labels: {
+          fontSize: 20
+        }
+      }}
     />
   )
 }
@@ -92,6 +105,15 @@ function TopTenTools (props) {
     }
   }, [loading, data])
 
+  const handleMouseOnLegend = (event) => {
+    console.log(event.target);
+    console.log(event.target.style)
+  }
+
+  const handleMouseOffLegend = (event) => {
+    console.log(event.target);
+  }
+
   return (
     <Grid item xs={12}>
       <Paper className={classes.paper}>
@@ -107,7 +129,7 @@ function TopTenTools (props) {
                     <LineChart toolTable={toolTableData} />
                   </Grid>
                   <Grid item xs={3}>
-                    <LineLegend toolTable={toolTableData} />
+                    <LineLegend toolTable={toolTableData} handleMouseOnLegend={handleMouseOnLegend} handleMouseOffLegend={handleMouseOffLegend} />
                   </Grid>
                 </Grid>
               )

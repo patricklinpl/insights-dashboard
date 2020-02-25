@@ -4,7 +4,7 @@ import { VictoryBar, VictoryChart, VictoryTheme } from 'victory'
 
 function BarChart (props) {
   const { data, chartProp } = props
-
+  console.log(data);
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <VictoryChart
@@ -14,6 +14,9 @@ function BarChart (props) {
         <VictoryBar
           {...chartProp}
           data={data}
+          style={{ data: {
+            fill: (x) => {console.log(x); return x.fill}
+          }}}
         />
       </VictoryChart>
     </div>

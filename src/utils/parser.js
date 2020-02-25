@@ -1,4 +1,5 @@
 import { isEmpty, pathOr } from 'ramda'
+import colorbrewer from 'colorbrewer'
 
 import {
   AGGREGATE,
@@ -16,6 +17,7 @@ export const makeChartProp = arr => {
   if (!arr || isEmpty(arr)) {
     return []
   }
+  const colors = colorbrewer.Paired[10]
 
   return arr.map((obj, index) => {
     if (isEmpty(obj)) {
@@ -28,7 +30,8 @@ export const makeChartProp = arr => {
     return {
       x: index,
       label: `${key} (${value})`,
-      y: value
+      y: value,
+      fill: colors[index],
     }
   })
 }
